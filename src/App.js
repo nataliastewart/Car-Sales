@@ -23,10 +23,11 @@ export const App = (props) => {
     <div className="boxes">
       <div className="box">
         <Header car={props.car} />
-        <AddedFeatures car={props.car} />
+        <AddedFeatures removeFeature={removeFeature} car={props.car} />
       </div>
       <div className="box">
         <AdditionalFeatures
+          buyItem={buyItem}
           additionalFeatures={props.additionalFeatures}
           addFeatures={props.addFeatures}
         />
