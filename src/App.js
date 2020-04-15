@@ -5,8 +5,9 @@ import AddedFeatures from "./components/AddedFeatures";
 import AdditionalFeatures from "./components/AdditionalFeatures";
 import Total from "./components/Total";
 import { initialState, reducer } from "./reducers";
+import { connect } from "react-redux";
 
-const App = (props) => {
+export const App = (props) => {
   const removeFeature = (item) => {
     // dispatch an action here to remove an item
   };
@@ -29,4 +30,13 @@ const App = (props) => {
   );
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    car: state.car,
+    additionalFeatures: state.additionalFeatures,
+    additionalPrice: state.additionalPrice,
+  };
+};
+
+// export default App;
+export default connect(mapStateToProps, {})(App);
