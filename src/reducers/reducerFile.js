@@ -1,3 +1,5 @@
+import { ADD_FEATURE } from "../actions/actions";
+
 export const initialState = {
   additionalPrice: 0,
   car: {
@@ -17,8 +19,18 @@ export const initialState = {
 
 export const reducerFile = (state = initialState, action) => {
   switch (action.type) {
-    case "":
-      return {};
+    case ADD_FEATURE:
+      return {
+        ...state,
+        car: {
+          ...state.car,
+          price: state.car.price + action.payload.price,
+          features: [...state.car.features, action.payload],
+        },
+        additionalFeatures: [
+          ...state.additionalFeatures.filter((item) => !action.payload.id),
+        ],
+      };
     //new case starting here
     case "":
       return {};
