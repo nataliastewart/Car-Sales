@@ -13,6 +13,7 @@ export function addFeatures(item) {
 }
 
 export function removeFeatures(item) {
+  console.log("ITEM- actions remove", item);
   return {
     type: REMOVE_FEATURE,
     payload: item,
