@@ -28,7 +28,9 @@ export const reducerFile = (state = initialState, action) => {
           features: [...state.car.features, action.payload],
         },
         additionalFeatures: [
-          ...state.additionalFeatures.filter((item) => !action.payload.id),
+          ...state.additionalFeatures.filter(
+            (item) => item.id !== action.payload.id
+          ),
         ],
       };
     //new case starting here

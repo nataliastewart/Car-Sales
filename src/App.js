@@ -8,6 +8,10 @@ import { connect } from "react-redux";
 import { addFeatures } from "./actions/actions";
 
 const App = (props) => {
+  const addItem = (item) => {
+    props.addFeatures(item);
+  };
+
   return (
     <div className="boxes">
       <div className="box">
@@ -16,6 +20,7 @@ const App = (props) => {
       </div>
       <div className="box">
         <AdditionalFeatures
+          addItem={addItem}
           additionalFeatures={props.additionalFeatures}
           addFeatures={props.addFeatures}
         />
