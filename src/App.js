@@ -1,48 +1,51 @@
-import React from 'react';
+import React from "react";
 
-import Header from './components/Header';
-import AddedFeatures from './components/AddedFeatures';
-import AdditionalFeatures from './components/AdditionalFeatures';
-import Total from './components/Total';
+import Header from "./components/Header";
+import AddedFeatures from "./components/AddedFeatures";
+import AdditionalFeatures from "./components/AdditionalFeatures";
+import Total from "./components/Total";
+import { connect } from "react-redux";
+import { addFeatures, removeFeatures } from "./actions/actions";
 
-const App = () => {
-  const state = {
-    additionalPrice: 0,
-    car: {
-      price: 26395,
-      name: '2019 Ford Mustang',
-      image:
-        'https://cdn.motor1.com/images/mgl/0AN2V/s1/2019-ford-mustang-bullitt.jpg',
-      features: []
-    },
-    additionalFeatures: [
-      { id: 1, name: 'V-6 engine', price: 1500 },
-      { id: 2, name: 'Racing detail package', price: 1500 },
-      { id: 3, name: 'Premium sound system', price: 500 },
-      { id: 4, name: 'Rear spoiler', price: 250 }
-    ]
+const App = (props) => {
+  const addItem = (item) => {
+    props.addFeatures(item);
   };
 
-  const removeFeature = item => {
+  const removeFeature = (item) => {
     // dispatch an action here to remove an item
-  };
-
-  const buyItem = item => {
-    // dipsatch an action here to add an item
+    props.removeFeatures(item);
   };
 
   return (
     <div className="boxes">
       <div className="box">
-        <Header car={state.car} />
-        <AddedFeatures car={state.car} />
+        <Header car={props.car} />
+        <AddedFeatures car={props.car} removeFeature={removeFeature} />
       </div>
       <div className="box">
-        <AdditionalFeatures additionalFeatures={state.additionalFeatures} />
-        <Total car={state.car} additionalPrice={state.additionalPrice} />
+        <AdditionalFeatures
+          addItem={addItem}
+          additionalFeatures={props.additionalFeatures}
+          addFeatures={props.addFeatures}
+        />
+        <Total car={props.car} additionalPrice={props.additionalPrice} />
       </div>
     </div>
   );
 };
 
-export default App;
+//mapStateToProps tell to connect which
+//pieces of our state we want to bring in to this component.
+//This function takes in state as a parameter, then returns an object where the properties can be passed to props, and the values are retrieved from the store for our component.
+
+const mapStateToProps = (state) => {
+  return {
+    additionalPrice: state.additionalPrice,
+    car: state.car,
+    features: state.features,
+    additionalFeatures: state.additionalFeatures,
+  };
+};
+
+export default connect(mapStateToProps, { addFeatures, removeFeatures })(App);
